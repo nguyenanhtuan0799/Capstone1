@@ -1,0 +1,134 @@
+.app-container-info {
+  height: 90vh;
+  background-color: #eff1f5;
+}
+.wrapper-cover {
+  height: 60px;
+}
+
+.info-wrapper-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 3rem;
+  border: 1px solid var(--primary-key);
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgb(108 111 115 / 10%);
+}
+.info-desc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.6rem;
+}
+.info-description {
+  padding: 40px 0;
+}
+
+.info-img {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 20px;
+  margin-top: 24px;
+  border: 1px solid var(--primary-key);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.info-type {
+  font-size: 2.6rem;
+  margin-bottom: 60px;
+}
+
+.info-body {
+  height: 80vh;
+  padding-top: 40px;
+  border: 1px solid var(--primary-key);
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgb(108 111 115 / 10%);
+}
+.info-body-wrapper_signal,
+.info-body-wrapper {
+  margin-left: 40px;
+  margin-bottom: 38px;
+  display: flex;
+  align-items: center;
+}
+.info-boy_labels {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+.info-body-wrapper_img {
+  margin-left: 100px;
+  margin-bottom: 24px;
+}
+/* border: none; là thành profile */
+.form-control {
+  margin-left: 20px;
+  padding: 8px 10px 8px 12px;
+  font-size: 1.9rem;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.info-body-upload {
+  font-size: 1.8rem;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.info-body-upload input[type="file"]::file-selector-button {
+  padding: 6px;
+  border-radius: 5px;
+  background-color: var(--primary-key);
+  color: #fff;
+  transition: 1s;
+  border: none;
+}
+
+.info-body-upload input[type="file"]::file-selector-button:hover {
+  background-color: #81ecec;
+  color: rgb(77, 77, 77);
+}
+
+.displayImg img {
+  width: 200px;
+  height: 200px;
+}
+
+.info-button_wrapper {
+  margin: 10px 0 20px;
+  text-align: center;
+}
+
+.profile-button {
+  width: 140px;
+  font-size: 1.8rem;
+  border-radius: 5px;
+  padding: 6px;
+  border-radius: 5px;
+  background-color: var(--primary-key);
+  color: #fff;
+  transition: 1s;
+  border: none;
+}
+
+.profile-button:hover {
+  background-color: #81ecec;
+  color: rgb(77, 77, 77);
+}
+
+.info-button_avatar {
+  margin: 10px 0 16px;
+}
+
+.profile-button a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}

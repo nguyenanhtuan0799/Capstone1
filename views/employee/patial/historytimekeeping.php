@@ -1,0 +1,88 @@
+     <div class="app-content">
+         <div class="app-content_header">
+             <div class="app-content_headding">
+                 <h1 class="app-content_headding-content">
+                     HISTORY TIMEKEEPING
+                 </h1>
+             </div>
+             <div class="app-content_switch">
+                 <div class="app-content_switch-icon">
+                     <div class="wrapper-app_icon">
+                         <i class="bx bxs-left-arrow app-content_switch-prev js-prev-date"></i>
+                     </div>
+                     <div class="wrapper-app_icon">
+                         <i class="bx bxs-right-arrow app-content_switch-next js-next-date"></i>
+                     </div>
+                 </div>
+                 <div class="app-content_switch-date js-display-date">
+                     04/10/2021 - 10/10/2021
+                 </div>
+             </div>
+         </div>
+         <div class="app-content-pagination">
+             <span class="pagination-user"> Name: <?=$_SESSION['fullname']?></span>
+         </div>
+         <table class="table">
+             <thead>
+                 <tr class="table-row">
+                     <th class="table-col">STT</th>
+                     <th class="table-col">Day</th>
+                     <th class="table-col">Shift</th>
+                     <th class="table-col">Time</th>
+                     <th class="table-col">Main</th>
+                     <th class="table-col">Overtime</th>
+                     <th class="table-col">Late arrival</th>
+                     <th class="table-col">Status</th>
+                 </tr>
+             </thead>
+             <tbody class="tab">
+                 
+             </tbody>
+         </table>
+         <div id="data-container"></div>
+<div id="pagination-container"></div>
+
+     </div>
+<script>
+    const tab = document.querySelector('.tab')
+    const urlApi = 'http://localhost/caps1/api/employee/history.php'
+    const accountID = document.querySelector('.empty').dataset.index;
+    
+    function viewHistory(callback) {
+        fetch (urlApi+`/?id=${accountID}`)
+        .then(function(res){
+            return res.json();
+        })
+        .then (callback)
+    }
+    function render({data}){
+        console.log(data);
+        const html = data.map(function(data,i){
+            return `
+            <tr class="table-row">
+                     <td class="table-col">${i+1}</td>
+                     <td class="table-col">${data.date}</td>
+                     <td class="table-col">${data.shift_name}</td>
+                     <td class="table-col">${data.shift_time}</td>
+                     <td class="table-col">${data.hours}h</td>
+                     <td class="table-col">${data.overtime}h</td>
+                     <td class="table-col">
+                         ${data.late_arrival==='true'? '<input type="checkbox" checked disabled />':'<input type="checkbox"  disabled />'}
+                     </td>
+                     <td class="table-col">${data.status==='true'? 'Approved':'Unapproved'}</td>
+                 </tr>
+            `
+            
+        }).join('');
+        tab.innerHTML=html;
+    }
+    viewHistory(render);
+    $('#pagination-container').pagination({
+    dataSource: [1, 2, 3, 4, 5, 6, 7],
+    callback: function(data, pagination) {
+        // template method of yourself
+        var html = template(data);
+        $('#data-container').html(html);
+    }
+})
+</script>

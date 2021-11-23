@@ -1,0 +1,56 @@
+CREATE VIEW sub_timesheet as(
+SELECT *,
+ case when dayofweek=0 then hours end as "sun",
+ case when dayofweek=1 then hours end as "mon",
+ case when dayofweek=2 then hours end as "tue",
+ case when dayofweek=3 then hours end as "wen",
+ case when dayofweek=4 then hours end as "thu",
+ case when dayofweek=5 then hours end as "fri",
+ case when dayofweek=6 then hours end as "sat"
+FROM timesheet
+GROUP BY dayofweek, account_id
+);
+
+SELECT account_id, 
+sum(sun) as "cn", 
+sum(mon) as "t2", 
+sum(tue) as "t3", 
+sum(wen) as "t4", 
+sum(thu) as "t5", 
+sum(fri) as "t6", 
+sum(sat) as "t7" 
+FROM sub_timesheet
+
+
+
+select account_id,
+	Max(IF(dayofweek = "0",hours,null)) AS "Sun",
+    Max(IF(dayofweek = "1",hours,null)) AS "Mon",
+    Max(IF(dayofweek = "2",hours,null)) AS "Tue",
+    Max(IF(dayofweek = "3",hours,null)) AS "Wed",
+    Max(IF(dayofweek = "4",hours,null)) AS "Thu",
+    Max(IF(dayofweek = "5",hours,null)) AS "Sat",
+    Max(IF(dayofweek = "0",hours,null)) AS "Fri"
+    From timesheet
+   GROUP BY account_id;
+
+
+// đã được
+   SELECT
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      'ifnull(SUM(case when date = ''',
+      date,
+      ''' then hours end),0) AS `',
+      date, '`'
+    )
+  ) INTO @sql
+FROM
+  timesheet;
+SET @sql = CONCAT('SELECT account_id, ', @sql, ' 
+                  FROM timesheet 
+                   GROUP BY account_id');
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

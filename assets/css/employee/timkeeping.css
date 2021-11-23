@@ -1,0 +1,164 @@
+.app-timekeeping {
+  /*height: 750px;*/
+  height: 95vh;
+  padding-top: 80px;
+  background-color: rgb(240, 240, 240);
+}
+
+.app-tk-content,
+.app-tk-info {
+  margin: 40px 12px 0;
+}
+
+.app-tk-info .title {
+  font-size: 2.6rem;
+  color: var(--primary-key);
+  font-weight: 700;
+}
+
+.app-tk-info .sub {
+  font-size: 1.8rem;
+  margin: 26px 0 0;
+  line-height: 2rem;
+  color: rgb(160, 159, 159);
+}
+
+.app-cover {
+  background-color: #fff;
+}
+
+.app-tk-content {
+  font-size: 2.4rem;
+}
+
+.shift {
+  margin-bottom: 40px;
+}
+
+.shift-title {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.shift-title label {
+  font-size: 2.2rem;
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.shift-title .shift-select {
+  border: none;
+  font-size: 1.8rem;
+  /*for firefox*/
+  -moz-appearance: none;
+  /*for chrome*/
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  padding: 0 10px;
+  color: var(--primary-key);
+  cursor: pointer;
+  transform: translateY(-1px);
+}
+
+.shift-title .shift-select option {
+  border-radius: 5px;
+}
+
+.shift-sub {
+  margin-top: 20px;
+  color: rgb(122, 122, 122);
+  font-size: 2.2rem;
+}
+
+.app-tk-content .checkBox {
+  font-size: 2.2rem;
+}
+
+.app-tk-content .checkBox p {
+  font-weight: 500;
+}
+
+.select-work {
+  display: flex;
+  margin-top: 34px;
+}
+
+.select-work-time {
+  margin-left: 80px;
+}
+.signature-content {
+  margin-top: 40px;
+}
+
+.signature-content {
+  display: flex;
+}
+
+.signature-content_label {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-right: 60px;
+}
+
+.signature-content_upload {
+  font-size: 2rem;
+  border-radius: 5px;
+  transform: translateY(-4px);
+}
+
+.signature-content_upload input[type="file"]::file-selector-button {
+  padding: 6px;
+  border-radius: 5px;
+  background-color: var(--primary-key);
+  color: #fff;
+  transition: 1s;
+  border: none;
+}
+
+.signature-content_upload input[type="file"]::file-selector-button:hover {
+  background-color: #81ecec;
+  color: rgb(77, 77, 77);
+}
+
+.displayImg {
+  width: 300px;
+  height: 170px;
+  margin: 40px 10px;
+}
+
+.app-cover-m20 {
+  background-color: #fff;
+  margin-top: 26px;
+}
+
+.app-tk_desc {
+  font-size: 2rem;
+  color: rgb(105, 105, 105);
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.app-tk_submit {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  font-size: 2rem;
+}
+.app-tk_submit button {
+  padding: 12px 76px;
+  background-color: var(--primary-key);
+  color: #fff;
+  border: 1px solid var(--primary-key);
+  border-radius: 5px;
+  transition: 1s;
+}
+
+.app-tk_submit button:hover {
+  background-color: #81ecec;
+  color: rgb(77, 77, 77);
+  opacity: 0.9;
+  cursor: pointer;
+}

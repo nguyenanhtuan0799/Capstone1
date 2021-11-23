@@ -1,0 +1,123 @@
+/* table  */
+.app-content {
+  padding: 4px;
+  margin: 6px 0;
+  border: 1px solid var(--primary-key);
+  border-radius: 4px;
+  height: 90vh;
+  min-height: 550px;
+}
+
+.table {
+  border: 1px solid rgb(150, 150, 150);
+  width: 100%;
+  text-align: center;
+  font-size: 1.6rem;
+  border-collapse: collapse;
+  color: black;
+  border-radius: 3px;
+}
+.table-row {
+  height: 60px;
+  border: 1px solid #ccc;
+}
+.table-col-first,
+.table-col {
+  border: 1px solid #ccc;
+}
+
+.table-col-first {
+  text-align: center;
+}
+.table-col {
+  max-width: 96px;
+  font-size: 1.6rem;
+}
+
+.table-col-content {
+  display: block;
+  width: 150px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: auto;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.table-col-time {
+  font-size: 1.5rem;
+}
+
+.table-col-content:hover {
+  color: var(--primary-key);
+}
+
+.app-content_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-content_headding {
+  margin: 0 10px;
+}
+
+.app-content_headding-content {
+  color: var(--primary-key);
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin: 16px 10px 20px;
+}
+
+.app-content_switch {
+  display: flex;
+  font-size: 1.6rem;
+  justify-content: space-between;
+}
+.app-content_switch-icon {
+  display: flex;
+  margin-right: 10px;
+  transform: translateY(-1px);
+}
+
+.app-content_switch-icon .wrapper-app_icon {
+  color: rgb(99, 99, 99);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wrapper-app_icon a {
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+.current-date {
+  margin-right: 20px;
+  border: 1px solid #ccc;
+  padding: 3px;
+  border-radius: 5px;
+  font-size: 1.6rem;
+}
+.current-date:hover {
+  color: #fff;
+  background-color: var(--primary-key);
+  transition: all 0.2s linear;
+}
+
+.app-content_switch-date {
+  font-size: 1.6rem;
+  transform: translateY(3px);
+  margin-right: 10px;
+}
+
+.app-content_switch-prev:hover,
+.app-content_switch-next:hover {
+  color: var(--primary-key);
+}
+
+.app-content_switch-prev,
+.app-content_switch-next {
+  padding: 2px 0;
+}

@@ -1,0 +1,19 @@
+0: "41"
+1: {fullname: 'Trương Nguyễn Tiến Quân', date: '14/11/2021', start_time: '07:00', hours: '4', overtime: '0', …}
+2: {fullname: 'Trương Nguyễn Tiến Quân', date: '13/11/2021', start_time: '07:00', hours: '4', overtime: '0', …}
+3: {fullname: 'Trương Nguyễn Tiến Quân', date: '12/11/2021', start_time: '07:00', hours: '4', overtime: '0', …}
+4: {fullname: 'Trương Nguyễn Tiến Quân', date: '11/11/2021', start_time: '07:00', hours: '4', overtime: '0', …}
+5: {fullname: 'Trương Nguyễn Tiến Quân', date: '15/11/2021', start_time: '07:00', hours: '4', overtime: '0', …}
+6: {fullname: 'Trương Nguyễn Tiến Quân', date: '08/11/2021', start_time: '07:00', hours: '4', overtime: '0', …}
+length: 7
+
+
+ if(data.hours > 0){
+               if(data.status ==="true"){
+                 lastCheckDateFormat = {hours :data.hours};
+               }else{
+                 lastCheckDateFormat = {hours: 0};
+               }
+             }else{
+               lastCheckDateFormat = {hours: 0};
+             }

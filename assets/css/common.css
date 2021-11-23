@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+
+* {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --primary-key: #007bff;
+  --text-color: #343a40;
+  --white-color: #fff;
+  --text-white: #f8f9fa;
+  --black-color: #000;
+  --late-color: rgb(245, 35, 35);
+  --ontime-color: rgb(42, 255, 77);
+  --overtime-color: var(--primary-key);
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+@keyframes FadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
