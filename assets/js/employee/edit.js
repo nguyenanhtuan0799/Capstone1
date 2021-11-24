@@ -1,6 +1,35 @@
 const profileURL = "http://localhost/caps1/api/account/viewInfo.php";
 const editURL = "http://localhost/caps1/api/account/editInfo.php";
 const idProfile = document.querySelector(".empty").dataset.index;
+const infoBody = document.querySelector(".info-body");
+const infoName = document.querySelector(".info-description");
+const infoImg = document.querySelector(".info-img");
+const infoType = document.querySelector(".info-type");
+const btnUploadImg = document.querySelector(".js-btn-img");
+const CLOUDINARY_NAME = "https://api.cloudinary.com/v1_1/nguyenanhtuan/upload";
+const CLOUDINARY_PRESET = "zjra8sp2";
+let UrlImg;
+
+btnUploadImg.onchange = (e) => {
+  const file = e.target.files[0];
+  var formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_PRESET);
+
+  axios({
+    url: CLOUDINARY_NAME,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    data: formData,
+  })
+    .then((res) => {
+      infoImg.src = res.data.secure_url;
+    })
+    .then((err) => console.log(err));
+};
+
 function start() {
   getInfo(idProfile, render);
 }
@@ -13,10 +42,6 @@ function getInfo(idProfile, callback) {
     .then(callback);
 }
 function render(data) {
-  const infoBody = document.querySelector(".info-body");
-  const infoName = document.querySelector(".info-description");
-  const infoImg = document.querySelector(".info-img");
-  const infoType = document.querySelector(".info-type");
   infoName.innerHTML = `Infomation ${data.fullname}`;
   infoImg.src = data.avatar ? data.avatar : "../../assets/img/noneUSer.png";
   infoType.innerHTML = data.role_id;
@@ -121,6 +146,7 @@ function handleEdit(id) {
   const fullname = document.querySelector("input[name='fullname']").value;
   const email = document.querySelector("input[name='email']").value;
   const address = document.querySelector("input[name='address']").value;
+  UrlImg = infoImg.src;
   const headquerter = "Office";
   formData = {
     account_id: id,
@@ -129,6 +155,7 @@ function handleEdit(id) {
     address: address,
     fullname: fullname,
     headquerter: headquerter,
+    avatar: UrlImg,
   };
   getEditInfo(formData);
 

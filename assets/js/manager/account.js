@@ -60,7 +60,7 @@ function render(data) {
     <div class="row">
         <div class="col l-12">
             <div class="info-body-wrapper">
-                <label class="info-boy_labels">Headquarters:</label><input type="text" class="form-control" placeholder="" value="Main Office" disabled />
+                <label class="info-boy_labels">Headquarters:</label><input type="text" class="form-control" placeholder="" value="Office" disabled />
             </div>
         </div>
     </div>

@@ -8,10 +8,10 @@
          <div class="row">
              <div class="col l-4">
                  <div class="info-wrapper-right">
-                     <div class="info-desc">
+                     <div class="info-desc" style="margin: 0 32px;text-align:center;">
                          <h6 class="info-description"></h6>
                      </div>
-                     <img class="info-img" src="../../assets/img/noneUSer.png" width="90" />
+                     <img class="info-img" src="" width="90" />
                      <span class="info-type"></span>
                  </div>
              </div>

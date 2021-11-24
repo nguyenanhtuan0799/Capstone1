@@ -11,7 +11,7 @@
                      <div class="info-desc">
                          <h6 class="info-description"></h6>
                      </div>
-                     <img class="info-img" src="../../assets/img/noneUSer.png" width="90" />
+                     <img class="info-img" src="" width="90" />
                      <span class="info-type"></span>
                  </div>
              </div>
