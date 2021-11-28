@@ -39,7 +39,8 @@ function renderEmployee({ data }) {
   let htmls = data.map((item, i) => {
     return `<tr>
                 <td>${i + 1}</td>
-                <td>${item.avatar}</td>
+                <td><img src="${item.avatar}" style="width: 80px;
+    height: 80px;"></td>
                 <td>${item.user_name}</td>
                 <td>${item.role_id}</td>
                 <td>${item.fullname}</td>

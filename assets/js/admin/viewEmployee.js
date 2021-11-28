@@ -38,7 +38,8 @@ function renderEmployee({ data }) {
   let htmls = data.map((item, i) => {
     return `<tr>
                 <td>${i}</td>
-                <td>${item.avatar}</td>
+                <td><img src="${item.avatar}" style="width: 80px;
+    height: 80px;"></td>
                 <td>${item.user_name}</td>
                 <td>${item.role_id}</td>
                 <td>${item.fullname}</td>
@@ -110,16 +111,21 @@ function resetPassword(formData, callback) {
     .then(callback);
 }
 function handelReset(id) {
+  let flag = true;
   let password = document.querySelector("input[name='password']").value;
+  if (password == "" || password.length < 6) {
+    flag = false;
+    alert("Please check again Password");
+  }
   let formData = {
     account_id: id,
     password: password,
   };
-  if (password) {
-    resetPassword(formData, getEmployee(renderEmployee));
-    location.reload();
-  } else {
-    alert("Please not be blank");
+  if (flag) {
+    if (password) {
+      resetPassword(formData, getEmployee(renderEmployee));
+      location.reload();
+    }
   }
 }
 
