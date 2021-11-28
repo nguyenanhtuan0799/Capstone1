@@ -24,7 +24,6 @@ function handelCreate() {
   let userName = document.querySelector("input[name='username']").value;
   let password = document.querySelector("input[name='password']").value;
   let type = document.querySelector("#type").value;
-  console.log(type);
   // 1 username
   if (
     userName == "" ||
@@ -41,11 +40,9 @@ function handelCreate() {
     alert("Please check again Password");
   }
   //type
-  if (type == "1" || type == "2") {
-    flag = true;
-  } else {
+  if (type != "1" && type != "2") {
     flag = false;
-    alert("Please check again Type");
+    alert("Please check again type");
   }
 
   if (flag) {
