@@ -184,7 +184,8 @@
        const next = `<?php echo $_SERVER['PHP_SELF']. '?week=' . ($week + 1) . '&year=' . $year . '&search=' . $search; ?>${stringInput}`;
        const prev = `<?php echo $_SERVER['PHP_SELF']. '?week=' . ($week - 1) . '&year=' . $year . '&search=' . $search; ?>${stringInput}`;
        nextDate.href = next; 
-       prevDate.href = prev; 
+       prevDate.href = prev;
+       inputSearchForm.value = ""; 
        e.preventDefault();
      }
      
