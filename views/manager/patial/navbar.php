@@ -32,4 +32,7 @@
       </ul>
     </div>
   </div>
+  <script>
+
+  </script>
   <script src="../../assets/js/manager/bar.js"></script>

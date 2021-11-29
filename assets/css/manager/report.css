@@ -96,12 +96,11 @@ td {
 
 .report-info_desc {
   font-size: 2.2rem;
-  padding-left: 10px;
 }
 
 .report-info_ID {
   display: flex;
-  padding: 20px;
+  padding: 19px;
   width: 100%;
 }
 .report-info_inner {
@@ -109,4 +108,161 @@ td {
 }
 .report-mg {
   margin-left: 64px;
+}
+
+.table {
+  border: 1px solid rgb(150, 150, 150);
+  width: 100%;
+  text-align: center;
+  font-size: 1.6rem;
+  border-collapse: collapse;
+  color: black;
+  border-radius: 3px;
+  margin-top: 30px;
+}
+.table-row {
+  height: 54px;
+  border: 1px solid #ccc;
+}
+
+.table-col {
+  font-size: 1.8rem;
+  border: 1px solid #ccc;
+}
+.table-col-time {
+  color: #000;
+}
+
+.table-wrapper {
+  margin: 2px 8px;
+  padding: 4px 2px;
+}
+
+#late {
+  background-color: var(--late-color);
+  border-radius: 15px;
+}
+#ontime {
+  background-color: var(--ontime-color);
+  border-radius: 15px;
+}
+#overtime {
+  background-color: var(--overtime-color);
+  border-radius: 15px;
+}
+
+/* table */
+
+/* note */
+.note {
+  margin-top: 56px;
+  margin-left: 50px;
+  color: #000;
+  font-size: 1.6rem;
+}
+.note .note-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.note .note-list li {
+  margin-bottom: 15px;
+}
+.note-item {
+  list-style-type: none;
+}
+.note-list li {
+  padding: 16px;
+  width: 200px;
+}
+.note-list li h5 {
+  text-align: center;
+}
+.note-late {
+  background-color: var(--late-color);
+  border: 2px solid black;
+  border-radius: 15px;
+}
+.note-OnTime {
+  background-color: var(--ontime-color);
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+.note-OverTime {
+  background-color: var(--overtime-color);
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+/* note */
+.pagination {
+  width: 400px;
+  margin-left: 50px;
+}
+/* header */
+/* app */
+.app-header {
+  background-color: var(--primary-key);
+  height: 80px;
+}
+
+.app-content_switch {
+  display: flex;
+  font-size: 1.6rem;
+  justify-content: flex-end;
+}
+.app-content_switch-icon {
+  display: flex;
+  margin-right: 10px;
+  transform: translateY(-1px);
+}
+
+.app-content_switch-icon .wrapper-app_icon {
+  color: rgb(99, 99, 99);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.app-content_switch-date {
+  font-size: 1.6rem;
+  min-width: 170px;
+  margin-right: 10px;
+  transform: translateY(3px);
+}
+
+.app-content_switch-prev:hover,
+.app-content_switch-next:hover {
+  color: var(--primary-key);
+}
+
+.app-content_switch-prev,
+.app-content_switch-next {
+  padding: 2px 0;
+}
+
+.wrapper-app_icon a {
+  color: rgb(99, 99, 99);
+  text-decoration: none;
+}
+
+.current-date {
+  margin-right: 20px;
+  border: 1px solid #ccc;
+  padding: 3px;
+  border-radius: 5px;
+  font-size: 1.6rem;
+}
+.current-date:hover {
+  color: #fff;
+  background-color: var(--primary-key);
+  transition: all 0.2s linear;
+}
+.table-timesheet {
+  margin-top: 70px;
+}
+.body-report {
+  margin-top: 36px;
 }
