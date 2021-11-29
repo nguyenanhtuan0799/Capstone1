@@ -197,6 +197,7 @@
        fetch(urlApi+`/?fullname=${search}`)
          .then(res => res.json())
          .then(callback)
+         .catch(err => alert("Please enter the correct fullname"))
      };
 
      function render({
