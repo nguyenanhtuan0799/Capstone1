@@ -143,7 +143,11 @@ function handleEdit(id) {
     headquerter: headquerter,
     avatar: UrlImg,
   };
-  getEditInfo(formData);
+  if (phone && fullname && email && address) {
+    getEditInfo(formData);
 
-  alert("Update Account Successfully");
+    alert("Update Account Successfully");
+  } else {
+    alert("Please enter enough information");
+  }
 }
