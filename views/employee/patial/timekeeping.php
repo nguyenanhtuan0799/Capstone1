@@ -46,10 +46,12 @@
                         <span class="signature-content_label">Electronic signature</span>
 
                         <div class="signature-content_upload">
-                            <input type="file" name="signature-upload" id="upload" onchange="ImagesFileAsURL()" />
+                            <input type="file" name="signature-upload" id="signature-upload" onchange="handleUpload()" />
                         </div>
                     </div>
-                    <div id="displayImg" class="displayImg"></div>
+                    <div id="displayImg" class="displayImg">
+                        <img src="../../assets/img/noneImg.png" alt="" class="displayImage" style="width:250px;height:200px">
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +63,7 @@
             </div>
             <div class="col l-8">
                 <div class="app-tk_submit">
-                    <button class="btn btn-danger profile-button mt-auto" onclick="handleCheck()" type="button">
+                    <button class="btn btn-danger profile-button mt-auto" onclick="getInfoSign(checkSign)" type="button">
                         Submit
                     </button>
                 </div>
@@ -91,7 +93,74 @@
     }
     const account_id = document.querySelector(".empty").dataset.index;
     const urlApi = "http://localhost/caps1/api/employee/timekeeping.php";
+    const urlApiInfo = "http://localhost/caps1/api/account/viewInfo.php"
+    const CLOUDINARY_NAME = "https://api.cloudinary.com/v1_1/nguyenanhtuan/upload";
+    
+    const CLOUDINARY_PRESET = "zjra8sp2";
+    let isConfirm;
 
+    //get file size check
+    function getFileSize(url)
+                {
+                    var fileSize = '';
+                    var http = new XMLHttpRequest();
+                    http.open('HEAD', url, false); // false = Synchronous
+
+                    http.send(null); // it will stop here until this http request is complete
+
+                    // when we are here, we already have a response, b/c we used Synchronous XHR
+
+                    if (http.status === 200) {
+                        fileSize = http.getResponseHeader('content-length');
+                    }
+                    return fileSize;
+                }
+    //get info
+    function getInfoSign(callback){
+        fetch(urlApiInfo+`?id=${account_id}`)
+            .then(response => response.json())
+            .then(callback)
+    }
+    //check
+     function checkSign(data){
+
+            const img = document.querySelector(".displayImage").src;
+            const imgDb = data.electronic_signature;
+            console.log(getFileSize(img));
+            console.log(getFileSize(imgDb));
+            if(getFileSize(img) === getFileSize(imgDb)){
+                handleTimekeeping();
+                alert("Timekeeping Successfully!");
+                window.location="../../views/employee/employeeIndex.php";
+            }else{
+                alert("Please insert the correct electronic signature");
+            }
+        }  
+    //upload 
+    function handleUpload() {
+        const file = document.getElementById("signature-upload").files[0];
+        const img = document.querySelector(".displayImage");
+
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", CLOUDINARY_PRESET);
+
+        axios({
+            url: CLOUDINARY_NAME,
+            method: "POST",
+            header: {
+            "content-type": "application/x-www-form-urlencoded",
+            },
+            data: formData,
+        })
+            .then((res) => {
+            img.src = res.data.secure_url;
+            })
+    
+            .then()
+            .then((err) => console.log(err));
+    }
+    // create timsheet
     function createTimesheet(formData, callback) {
         let option = {
             method: "POST",
@@ -110,14 +179,7 @@
             .catch((error) => console.log(error));
     }
 
-    function handleCheck(){
-        let isConfirm = true;
-        if(isConfirm){
-            handleTimekeeping();
-        }else{
-
-        }
-    }
+  
 
     function handleTimekeeping () {
     const date = new Date();

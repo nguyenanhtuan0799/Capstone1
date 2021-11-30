@@ -8,6 +8,7 @@ const infoType = document.querySelector(".info-type");
 const btnUploadImg = document.querySelector(".js-btn-img");
 const CLOUDINARY_NAME = "https://api.cloudinary.com/v1_1/nguyenanhtuan/upload";
 const CLOUDINARY_PRESET = "zjra8sp2";
+
 let UrlImg;
 
 btnUploadImg.onchange = (e) => {
@@ -49,34 +50,46 @@ function render(data) {
                     <div class="row">
                          <div class="col l-6">
                              <div class="info-body-wrapper">
-                                 <label class="info-boy_labels">Username:</label><input type="text" class="form-control" value="${data.user_name}" placeholder="Doe" disabled />
+                                 <label class="info-boy_labels">Username:</label><input type="text" class="form-control" value="${
+                                   data.user_name
+                                 }" placeholder="Doe" disabled />
                              </div>
                          </div>
                          <div class="col l-6">
                              <div class="info-body-wrapper">
-                                 <label class="info-boy_labels">Phone:</label><input type="text" class="form-control" name="phone" value="${data.phone_number}" placeholder="Phone" />
+                                 <label class="info-boy_labels">Phone:</label><input type="text" class="form-control" name="phone" value="${
+                                   data.phone_number
+                                 }" placeholder="Phone" />
                              </div>
                          </div>
                      </div>
                      <div class="row">
                          <div class="col l-6">
                              <div class="info-body-wrapper">
-                                 <label class="info-boy_labels">Fullname:</label><input type="text" class="form-control" name="fullname" placeholder="Fullname" value="${data.fullname}" />
+                                 <label class="info-boy_labels">Fullname:</label><input type="text" class="form-control" name="fullname" placeholder="Fullname" value="${
+                                   data.fullname
+                                 }" />
                              </div>
                          </div>
                          <div class="col l-6">
                              <div class="info-body-wrapper">
-                                 <label class="info-boy_labels">Type:</label><input type="text" class="form-control" placeholder="headline" value="${data.role_id}" disabled />
+                                 <label class="info-boy_labels">Type:</label><input type="text" class="form-control" placeholder="headline" value="${
+                                   data.role_id
+                                 }" disabled />
                              </div>
                          </div>
                          <div class="col l-12">
                              <div class="info-body-wrapper">
-                                 <label class="info-boy_labels">Email:</label><input type="text" class="form-control" name="email" placeholder="Email" value="${data.email}" />
+                                 <label class="info-boy_labels">Email:</label><input type="text" class="form-control" name="email" placeholder="Email" value="${
+                                   data.email
+                                 }" />
                              </div>
                          </div>
                          <div class="col l-12">
                              <div class="info-body-wrapper">
-                                 <label class="info-boy_labels">Address:</label><input type="text" class="form-control" name="address" placeholder="Address" value="${data.address}" />
+                                 <label class="info-boy_labels">Address:</label><input type="text" class="form-control" name="address" placeholder="Address" value="${
+                                   data.address
+                                 }" />
                              </div>
                          </div>
                      </div>
@@ -92,12 +105,16 @@ function render(data) {
                              <div class="info-body-wrapper_signal">
                                  <span class="info-boy_labels">Electronic signature</span>
                                  <div class="info-body-upload">
-                                     <input type="file" name="upload" id="upload" onchange="ImagesFileAsURL()" />
+                                     <input type="file" name="upload" id="upload" onchange="handleUpload()" />
                                  </div>
                              </div>
                              <div class="info-body-wrapper_img">
                                  <div id="displayImg" class="displayImg">
-                                     <img src="../../assets/img/noneImg.png" alt="" />
+                                     <img class="displayImage" src="${
+                                       data.electronic_signature
+                                         ? data.electronic_signature
+                                         : "../../assets/img/noneImg.png"
+                                     }" alt="" />
                                  </div>
                              </div>
                          </div>
@@ -123,6 +140,29 @@ function render(data) {
 
   infoBody.innerHTML = htmls;
 }
+//upload signalture
+
+function handleUpload() {
+  const file = document.getElementById("upload").files[0];
+  const img = document.querySelector(".displayImage");
+
+  var formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_PRESET);
+
+  axios({
+    url: CLOUDINARY_NAME,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+    data: formData,
+  })
+    .then((res) => {
+      img.src = res.data.secure_url;
+    })
+    .then((err) => console.log(err));
+}
 
 /// edit
 
@@ -146,8 +186,12 @@ function handleEdit(id) {
   const fullname = document.querySelector("input[name='fullname']").value;
   const email = document.querySelector("input[name='email']").value;
   const address = document.querySelector("input[name='address']").value;
-  UrlImg = infoImg.src;
+  const image = document.querySelector(".displayImage");
+
   const headquerter = "Office";
+  const urlSignalture = image.src;
+  console.log(urlSignalture);
+  UrlImg = infoImg.src;
   formData = {
     account_id: id,
     phone_number: phone,
@@ -156,10 +200,16 @@ function handleEdit(id) {
     fullname: fullname,
     headquerter: headquerter,
     avatar: UrlImg,
+    electronic_signature: urlSignalture,
   };
-  if (phone && fullname && email && address) {
+  if (
+    phone &&
+    fullname &&
+    email &&
+    address &&
+    urlSignalture !== "http://localhost/caps1/assets/img/noneImg.png"
+  ) {
     getEditInfo(formData);
-
     alert("Update Account Successfully");
   } else {
     alert("Please enter enough information");

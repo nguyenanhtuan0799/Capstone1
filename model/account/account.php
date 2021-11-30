@@ -14,6 +14,7 @@ class Account
     public $password;
     public $headquerter;
     public $electronic_signature;
+    public $passEncode;
 
     //connect dbname
     public function __construct($db)
@@ -40,11 +41,13 @@ class Account
         $this->email = $row['email'];
         $this->headquerter = $row['headquerter'];
         $this->electronic_signature = $row['electronic_signature'];
+        $this->passEncode = $row['passEncode'];
+
     }
     //editProfile
     public function editProfile()
     {
-        $query = "UPDATE account SET avatar=:avatar,fullname=:fullname,phone_number=:phone_number,address=:address,email=:email,headquerter=:headquerter,electronic_signature=:electronic_signature WHERE account_id=:account_id";
+        $query = "UPDATE account SET avatar=:avatar,fullname=:fullname,phone_number=:phone_number,address=:address,email=:email,headquerter=:headquerter,electronic_signature=:electronic_signature,passEncode=:passEncode WHERE account_id=:account_id";
         $stmt = $this->conn->prepare($query);
         //clean
         $this->avatar = htmlspecialchars(strip_tags($this->avatar));
@@ -54,6 +57,8 @@ class Account
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->headquerter = htmlspecialchars(strip_tags($this->headquerter));
         $this->electronic_signature = htmlspecialchars(strip_tags($this->electronic_signature));
+        $this->passEncode = htmlspecialchars(strip_tags($this->passEncode));
+
         //bind data
         $stmt->bindParam(':account_id', $this->account_id);
         $stmt->bindParam(':avatar', $this->avatar);
@@ -63,6 +68,8 @@ class Account
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':headquerter', $this->headquerter);
         $stmt->bindParam(':electronic_signature', $this->electronic_signature);
+        $stmt->bindParam(':passEncode', $this->passEncode);
+
 
         if ($stmt->execute()) {
             return true;
