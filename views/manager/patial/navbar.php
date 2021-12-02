@@ -7,7 +7,7 @@
             <i class="bx bx-plus-medical js-navbar-add active"></i>
             <i class="bx bx-minus js-navbar-remove"></i>
           </div>
-          <a href="" class="navbar-item__link">
+          <a href="../../views/manager/checkworking.php" class="navbar-item__link">
             Checking working hours
           </a>
         </li>

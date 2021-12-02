@@ -184,9 +184,12 @@
     function handleTimekeeping () {
     const date = new Date();
     //get fulldate
-    const day = date.getDate();
-    const month = date.getMonth();
+    let day = date.getDate();
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
+    if(day <= 9){
+        day = `0${day}`;
+    }
     const dateFull = `${day}/${month}/${year}`;
     //get full hours
     const hours = date.getHours();

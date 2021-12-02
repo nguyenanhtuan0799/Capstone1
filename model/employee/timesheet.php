@@ -58,7 +58,7 @@ class Timesheet
     }
 
     public function viewHistory() {
-        $query = "SELECT * FROM timesheet where account_id=?";
+        $query = "SELECT * FROM timesheet where account_id=? ORDER by ts_id DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->account_id);
         $stmt->execute();

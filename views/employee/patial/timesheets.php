@@ -84,6 +84,8 @@
       function render({
        data
      }) {
+      console.log(data)
+
        // xử lý data 
       const dataFormat = data.map(({shift_name,...rest})=>{
         const data = [
@@ -92,6 +94,7 @@
         ]
         return data;
       })
+      console.log(dataFormat)
       const dataFormatAccountId = [...
           dataFormat.reduce((map, [key, obj]) => 
             map.set(key, [...(map.get(key) || []), obj])
@@ -99,7 +102,7 @@
           .entries()
         ]
         .map(([key, objArr]) => [key, ...objArr]);
-
+      console.log(dataFormatAccountId)
         // date time
        const colEl = document.querySelectorAll(".empty-col");
        let colElCurr = document.querySelector(".empty-col.empty-currentDate");

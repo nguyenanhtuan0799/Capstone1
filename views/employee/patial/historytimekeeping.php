@@ -26,7 +26,7 @@
              <thead>
                  <tr class="table-row">
                      <th class="table-col">STT</th>
-                     <th class="table-col">Day</th>
+                     <th class="table-col">Date</th>
                      <th class="table-col">Shift</th>
                      <th class="table-col">Time</th>
                      <th class="table-col">Main</th>
@@ -43,7 +43,9 @@
 <div id="pagination-container"></div>
 
      </div>
+     <script src="../../assets/js/vendor/moment.js"></script>
 <script>
+
     const tab = document.querySelector('.tab')
     const urlApi = 'http://localhost/caps1/api/employee/history.php'
     const accountID = document.querySelector('.empty').dataset.index;
@@ -56,8 +58,10 @@
         .then (callback)
     }
     function render({data}){
-        console.log(data);
-        const html = data.map(function(data,i){
+        let now = new Date();
+        const dataSort = data.sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime());
+            console.log(dataSort);
+        const html = dataSort.map(function(data,i){
             return `
             <tr class="table-row">
                      <td class="table-col">${i+1}</td>
@@ -77,12 +81,5 @@
         tab.innerHTML=html;
     }
     viewHistory(render);
-    $('#pagination-container').pagination({
-    dataSource: [1, 2, 3, 4, 5, 6, 7],
-    callback: function(data, pagination) {
-        // template method of yourself
-        var html = template(data);
-        $('#data-container').html(html);
-    }
-})
+
 </script>
