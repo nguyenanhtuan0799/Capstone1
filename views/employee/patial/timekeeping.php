@@ -185,15 +185,24 @@
     const date = new Date();
     //get fulldate
     let day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
     if(day <= 9){
         day = `0${day}`;
     }
+    if(month <= 9){
+        month = `0${month}`;
+    }
     const dateFull = `${day}/${month}/${year}`;
     //get full hours
-    const hours = date.getHours();
-    const minute = date.getMinutes();
+    let hours = date.getHours();
+    let minute = date.getMinutes();
+    if(hours <= 9){
+        hours = `0${hours}`;
+    }
+    if(minute <= 9){
+        minute = `0${minute}`;
+    }
     const startTime = `${hours}:${minute}`;
     const days = date.getDay("dateFull");
     //get main,overtime
@@ -224,7 +233,7 @@
             break;
         case"Afternoon Shift": 
             shiftName = "Afternoon Shift";
-            shiftTime = "13:00 - 18:00";
+            shiftTime = "13:00 - 17:00";
             const time2 = "13:00";
             if(startTime > time2){
                 isLate = "true";
