@@ -67,8 +67,8 @@
             <div class="overview-boxes">
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Manager's account number</div>
-                        <div class="number">40,876</div>
+                        <div class="box-topic">Total account manager</div>
+                        <div class="number manager_account"></div>
                         <div class="indicator">
                             <i class='bx bx-up-arrow-alt'></i>
                             <span class="text">Up from yesterday</span>
@@ -78,8 +78,8 @@
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Employee account number</div>
-                        <div class="number">38,876</div>
+                        <div class="box-topic">Total account employee</div>
+                        <div class="number employee_account"></div>
                         <div class="indicator">
                             <i class='bx bx-up-arrow-alt'></i>
                             <span class="text">Up from yesterday</span>
@@ -90,8 +90,8 @@
 
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Total Return</div>
-                        <div class="number">11,086</div>
+                        <div class="box-topic">Total account</div>
+                        <div class="number total_account"></div>
                         <div class="indicator">
                             <i class='bx bx-down-arrow-alt down'></i>
                             <span class="text">Down From Today</span>
@@ -101,12 +101,60 @@
                 </div>
             </div>
 
-            <div class="sales-boxes">
+            <div class="sales_boxes">
 
             </div>
         </div>
     </section>
     <script src="../../assets/js/admin/admin.js"></script>
+    <script>
+        const sales_boxes = document.querySelector('.sales_boxes')
+        const urlApii = 'http://localhost/caps1/api/admin/viewemployee.php'
+        const urlApi = 'http://localhost/caps1/api/admin/viewmanager.php'
+        const manager_number = document.querySelector(".manager_account")
+        const employee_number = document.querySelector(".employee_account")
+        const total_number = document.querySelector(".total_account")
+
+        let a, b;
+
+        function managerAccount(callback) {
+            fetch(urlApi)
+                .then(function(res) {
+                    console.log(res)
+                    return res.json();
+                })
+                .then(callback)
+        }
+
+        function render({
+            data
+        }) {
+            manager_number.innerHTML = data.length;
+            console.log(manager_number.innerText);
+        }
+        managerAccount(render)
+
+        function employeeAccount(callback) {
+            fetch(urlApii)
+                .then(function(res) {
+                    return res.json();
+                })
+                .then(callback)
+        }
+
+        function renders({
+            data
+        }) {
+            employee_number.innerHTML = data.length;
+        }
+        employeeAccount(renders)
+
+        function totalAccount() {
+            total_number.innerText = parseInt(manager_number.innerText) + parseInt(employee_number.innerText)
+        }
+        setTimeout(totalAccount, 1000);
+    </script>
+
 </body>
 
 </html>
