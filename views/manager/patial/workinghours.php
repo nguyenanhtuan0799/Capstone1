@@ -1,4 +1,6 @@
+
 <div class="app-content">
+
     <div class="app-content_header">
         <div class="app-content_headding">
             <h1 class="app-content_headding-content">
@@ -7,9 +9,9 @@
         </div>
     </div>
     <div class="app-content_switch_export">
-        <form class="example" action="/action_page.php">
+        <form class="example">
             <input type="text" placeholder="Search.." name="search2" class="input_check">
-            <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
+            <button type="submit" class="btn-search form-search-btn"><i class="fa fa-search"></i></button>
         </form>
     </div>
     <table class="table">
@@ -36,6 +38,21 @@
     const urlApi = "http://localhost/caps1/api/manager/checking.php";
     const urlAction = "http://localhost/caps1/api/manager/approval.php";
     const tableEl = document.querySelector(".table-js");
+     const btnSearch = document.querySelector('.form-search-btn');
+     const urlApii = "http://localhost/caps1/api/manager/report.php";
+    const formInput = document.querySelector(".input_check");
+     btnSearch.onclick = (e) =>{
+        stringInput = formInput.value;
+       getSearch(stringInput,render);
+       formInput.value = ""; 
+       e.preventDefault();
+     }
+    function getSearch(search,callback){
+        fetch(urlApii+`/?fullname=${search}`)
+            .then(res => res.json())
+            .then(callback)
+            .catch(err => alert("Please enter the correct fullname"))
+    }
     getUrl(render);
     function getUrl(callback){
         fetch(urlApi)

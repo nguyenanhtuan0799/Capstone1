@@ -107,8 +107,6 @@
         </div>
     </section>
     <script src="../../assets/js/admin/admin.js"></script>
-    <script src="../../assets/js/admin/viewManager.js"></script>
-    <script src="../../assets/js/admin/viewEmployee.js"></script>
 </body>
 
 </html>

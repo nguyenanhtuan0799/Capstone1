@@ -78,4 +78,17 @@ class Account
             return false;
         }
     }
+    public function changePass(){
+        $query = "UPDATE account SET password=:password WHERE account_id=? LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $this->password = htmlspecialchars(strip_tags($this->password));
+        $stmt->bindParam(':account_id', $this->account_id);
+        $stmt->bindParam(':password', $this->password);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            printf("Error %.\n ,$stmt->error");
+            return false;
+        }
+    }
 }

@@ -129,7 +129,13 @@ session_start();
                         </a>
                       </li>
                       <li class="header-user__info-item">
-                        <a href="" class="header-user__info-link1">
+                        <a href="<?php
+                          if ($_SESSION['role_id'] == 2) {
+                            echo "../../views/employee/changepass.php";
+                          } else {
+                            echo "../../views/manager/changepass.php";
+                          }
+                          ?>" class="header-user__info-link1">
                           Change Password
                         </a>
                       </li>
