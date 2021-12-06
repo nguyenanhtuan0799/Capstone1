@@ -68,7 +68,7 @@ const profileURL = "http://localhost/caps1/api/account/viewInfo.php";
             <div class="row">
                 <div class="col l-12">
                     <div class="info-body-wrapper">
-                        <label class="info-boy_labels">Password:</label><input type="password" name="password" class="form-control" style="border:1px solid var(--primary-key)" placeholder="Enter Password"disable/>
+                        <label class="info-boy_labels">New Password:</label><input type="password" name="password" class="form-control" style="border:1px solid var(--primary-key)" placeholder="Enter Password"disable/>
                     </div>
                 </div>
             </div>

@@ -208,13 +208,7 @@
     //get main,overtime
     let hoursMain ;
     let hourOvertime;
-    if(mainEl.checked) {
-        hoursMain = "4";
-        hourOvertime = "0";
-    }else{
-        hourOvertime = "3";
-        hoursMain = "0";
-    }
+    
     //check late,shift
     let shiftName ;
     let shiftTime;
@@ -222,6 +216,13 @@
     const valueCheck = selectEl.value.split(",")
     switch (valueCheck[0]){
         case "Morning Shift":
+            if(mainEl.checked) {
+                hoursMain = "4";
+                hourOvertime = "0";
+            }else{
+                hourOvertime = "4";
+                hoursMain = "0";
+            }
             shiftName = "Morning Shift";
             shiftTime = "07:00 - 11:00";
             const time1 = "07:00";
@@ -232,6 +233,13 @@
             }
             break;
         case"Afternoon Shift": 
+            if(mainEl.checked) {
+                hoursMain = "4";
+                hourOvertime = "0";
+            }else{
+                hourOvertime = "4";
+                hoursMain = "0";
+            }
             shiftName = "Afternoon Shift";
             shiftTime = "13:00 - 17:00";
             const time2 = "13:00";
@@ -242,6 +250,13 @@
             }
             break;
         case"Night Shift": 
+            if(mainEl.checked) {
+                hoursMain = "3";
+                hourOvertime = "0";
+            }else{
+                hourOvertime = "3";
+                hoursMain = "0";
+            }
             shiftName = "Night Shift";
             shiftTime = "18:00 - 21:00";
             const time3 = "18:00";
