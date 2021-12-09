@@ -32,74 +32,90 @@
             
         </tbody>
     </table>
+    <div id="pagination"></div>
 </div>
-
 <script>
-    const urlApi = "http://localhost/caps1/api/manager/checking.php";
-    const urlAction = "http://localhost/caps1/api/manager/approval.php";
-    const tableEl = document.querySelector(".table-js");
-     const btnSearch = document.querySelector('.form-search-btn');
-     const urlApii = "http://localhost/caps1/api/manager/report.php";
-    const formInput = document.querySelector(".input_check");
-     btnSearch.onclick = (e) =>{
-        stringInput = formInput.value;
-       getSearch(stringInput,render);
-       formInput.value = ""; 
-       e.preventDefault();
-     }
-    function getSearch(search,callback){
-        fetch(urlApii+`/?fullname=${search}`)
-            .then(res => res.json())
-            .then(callback)
-            .catch(err => alert("Please enter the correct fullname"))
-    }
-    getUrl(render);
-    function getUrl(callback){
-        fetch(urlApi)
-            .then(res => res.json())
-            .then(callback)
-    }
-    function render({data}){
-        const html = data.map(data =>{
-            return `
+
+
+const urlApi = "http://localhost/caps1/api/manager/checking.php";
+const urlAction = "http://localhost/caps1/api/manager/approval.php";
+const tableEl = document.querySelector(".table-js");
+const btnSearch = document.querySelector(".form-search-btn");
+const urlApii = "http://localhost/caps1/api/manager/report.php";
+const formInput = document.querySelector(".input_check");
+btnSearch.onclick = (e) => {
+  stringInput = formInput.value;
+  getSearch(stringInput, render);
+  formInput.value = "";
+  e.preventDefault();
+};
+function getSearch(search, callback) {
+  fetch(urlApii + `/?fullname=${search}`)
+    .then((res) => res.json())
+    .then(callback)
+    .catch((err) => alert("Please enter the correct fullname"));
+}
+getUrl(render);
+function getUrl(callback) {
+  fetch(urlApi)
+    .then((res) => res.json())
+    .then(callback);
+}
+function render({ data }) {
+  const html = data.map((data) => {
+    return `
                 <tr class="table-row">
                     <th class="table-col">${data.account_id}</th>
                     <th class="table-col">${data.fullname}</th>
                     <th class="table-col">${data.date}</th>
-                    <th class="table-col"><p class="highlight">${data.shift_name}</p></th>
+                    <th class="table-col"><p class="highlight">${
+                      data.shift_name
+                    }</p></th>
                     <th class="table-col">${data.shift_time}</th>
                     <th class="table-col">${data.overtime}H</th>
-                    <th class="table-col">${data.late_arrival === "true" ? "<span style='font-size:2rem'><i class='bx bx-check-square'></i></span>" : "<span style='font-size:2.4rem'><i class='bx bx-checkbox' ></i></span>"}</th>
-                    <th class="table-col"><p class="highlight">${data.status === "true" ? "Confirm" : "Doing"}</p></th>
-                    <th class="table-col"><button class="${data.status === "true" ? "not-button" : "button"}" onclick="${data.status === "true" ? '' : `handleConfirm(${data.ts_id})`}">${data.status === "true" ? "Approved" : "Approval"}</button></th>
+                    <th class="table-col">${
+                      data.late_arrival === "true"
+                        ? "<span style='font-size:2rem'><i class='bx bx-check-square'></i></span>"
+                        : "<span style='font-size:2.4rem'><i class='bx bx-checkbox' ></i></span>"
+                    }</th>
+                    <th class="table-col"><p class="highlight">${
+                      data.status === "true" ? "Confirm" : "Doing"
+                    }</p></th>
+                    <th class="table-col"><button class="${
+                      data.status === "true" ? "not-button" : "button"
+                    }" onclick="${
+      data.status === "true" ? "" : `handleConfirm(${data.ts_id})`
+    }">${data.status === "true" ? "Approved" : "Approval"}</button></th>
                 </tr>
-            `
-        })
-        tableEl.innerHTML = html.join("");
-    }
-    function getUrlAction(formData,callback){
-        let option = {
-            method: "PUT",
-            header: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": true,
-            },
-            body: JSON.stringify(formData),
-        };
-        fetch(urlAction, option)
-            .then((response) => response)
-            .then(callback);
-    }
+            `;
+  });
+  tableEl.innerHTML = html.join("");
+}
+function getUrlAction(formData, callback) {
+  let option = {
+    method: "PUT",
+    header: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+    },
+    body: JSON.stringify(formData),
+  };
+  fetch(urlAction, option)
+    .then((response) => response)
+    .then(callback);
+}
 
-    function handleConfirm(id){
-        const status = "true";
-        const formData = {
-            ts_id : id,
-            status : status,
-        }
-        getUrlAction(formData);
-        alert("Approval Successfully");
-       location.reload();
-    }
+function handleConfirm(id) {
+  const status = "true";
+  const formData = {
+    ts_id: id,
+    status: status,
+  };
+  getUrlAction(formData);
+  alert("Approval Successfully");
+  location.reload();
+}
+
+
 </script>

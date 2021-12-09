@@ -12,6 +12,7 @@ class Account
     public $address;
     public $email;
     public $password;
+    public $createDate;
 
     //connect dbname
     public function __construct($db)
@@ -22,16 +23,20 @@ class Account
     //create
     public function createAccount()
     {
-        $query = "INSERT INTO account SET user_name=:user_name,password=:password,role_id=:role_id";
+        $query = "INSERT INTO account SET user_name=:user_name,password=:password,role_id=:role_id,createDate=:createDate";
         $stmt = $this->conn->prepare($query);
         //clean
         $this->user_name = htmlspecialchars(strip_tags($this->user_name));
         $this->password = htmlspecialchars(strip_tags($this->password));
         $this->role_id = htmlspecialchars(strip_tags($this->role_id));
+        $this->createDate = htmlspecialchars(strip_tags($this->createDate));
+
         //bind data
         $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':role_id', $this->role_id);
+        $stmt->bindParam(':createDate', $this->createDate);
+
 
         if ($stmt->execute()) {
             return true;

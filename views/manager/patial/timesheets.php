@@ -69,9 +69,9 @@
        <div class="switch-date_week active">Week</div>
      </div>
    <div class="table-div">
-     </div>
-     <table class="table">
-   </table>
+    </div>
+   <table class="table">
+    </table>
     
     <div class="note">
     </div>

@@ -27,21 +27,30 @@
         </div>
         <div class="app-content_switch-icon">
              <div class="wrapper-app_icon">
-              <a class="current-date" href="../../views/manager/managerExport.php">
+              <a class="current-date today-php" href="../../views/manager/managerExport.php">
                Today
              </a>
+             <p class="current-date today-btn hide">
+               Today
+             </p>
            </div>
            <div class="wrapper-app_icon">
              <!--Previous week-->
              <!--Next week-->
-             <a href="<?php echo $_SERVER['PHP_SELF'] . '?week=' . ($week - 1) . '&year=' . $year; ?>">
+             <a class='prev-php' href="<?php echo $_SERVER['PHP_SELF'] . '?week=' . ($week - 1) . '&year=' . $year; ?>">
                <i class="bx bxs-left-arrow app-content_switch-prev"></i>
              </a>
+               <div class="btn-prev-date hide">
+               <i class="bx bxs-left-arrow app-content_switch-prev"></i>
+             </div>
            </div>
            <div class="wrapper-app_icon">
-             <a href="<?php echo $_SERVER['PHP_SELF'] . '?week=' . ($week + 1) . '&year=' . $year; ?>">
+             <a class='next-php' href="<?php echo $_SERVER['PHP_SELF'] . '?week=' . ($week + 1) . '&year=' . $year; ?>">
                <i class="bx bxs-right-arrow app-content_switch-next"></i>
              </a>
+             <div class="btn-next-date hide">
+               <i class="bx bxs-right-arrow app-content_switch-next"></i>
+             </div>
            </div>
             <div class="app-content_switch-date js-display-date" style="transform:translateY(8px);margin-left: 10px;">
             </div>
@@ -59,6 +68,12 @@
         } while ($week == $dt->format('W'));
         ?>
      </div>
+      <div class="switch-style_date">
+       <div class="switch-date_month">Month</div>
+       <div class="switch-date_week active">Week</div>
+     </div>
+    <div class="table-div">
+    </div>
     <table class="table" id="table-timesheet">
     </table>
 </div>
@@ -110,6 +125,8 @@ function exportTableToExcel(tableId, filename) {
 
 <script>
     const tdEl = document.querySelector(".table");
+       const jsDateEl = document.querySelector(".js-display-date");
+
      const urlApi = "http://localhost/caps1/api/manager/timsheet.php";
      //get urlApi
      function getUrlApi(callback) {
@@ -156,7 +173,6 @@ function exportTableToExcel(tableId, filename) {
        const sixDateFormat = sixDate.innerHTML.slice(12, 23);
        const lastDateFormat = lastDate.innerHTML.slice(10, 21);
        const jsDate = `${firstDateFormat} - ${lastDateFormat}`;
-       const jsDateEl = document.querySelector(".js-display-date");
        const html = `
             <tr class="table-row">
              <td class="table-col-first">Employee</td>
@@ -255,7 +271,7 @@ function exportTableToExcel(tableId, filename) {
            break;
        }
      })
-data.forEach(data => {
+  data.forEach(data => {
        switch (data.date){
          case firstDateFormat:
               firstOvertimeDateFormat = {overtime : data.overtime};
@@ -330,6 +346,170 @@ data.forEach(data => {
        tdEl.innerHTML = html;
        jsDateEl.innerHTML = jsDate;
      }
+</script>
+
+<script>
+  const nextPhp = document.querySelector(".next-php");
+  const prevPhp = document.querySelector(".prev-php");
+  const todayPhp = document.querySelector(".today-php");
+  const btnNext = document.querySelector(".btn-next-date");
+  const btnPre = document.querySelector(".btn-prev-date");
+  const btnToday = document.querySelector(".today-btn");
+
+  const divEl = document.querySelector(".table-div");
+    const date = new Date();
+    let monthCurr = date.getMonth() ;
+    let yearCurr = date.getFullYear();
+    let monthCount = date.getMonth() ;
+    let yearCount = date.getFullYear();
+
+  const getDays = (month, year) => {
+      let date = new Date(`${year}-${parseInt(month) + 1}-01`);
+      let days = [];
+      while (date.getMonth() === parseInt(month)) {
+        days.push(date.getDate());
+        date.setDate(date.getDate() + 1);
+      }
+      return days;
+    };
+  let arrayDateInMonth =  getDays(monthCount, yearCount);
+   
+  function renderMonth({data}){
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+    let days ="";
+//  xử lý data 
+      const dataFormat = data.map(({fullname,date,hours,overtime})=>{
+        const data = [
+          fullname,
+          {date,
+          hours,
+          overtime
+          }
+        ]
+        return data;
+      })
+
+      const dataFormatAccountId = [...
+          dataFormat.reduce((map, [key, obj]) => 
+            map.set(key, [...(map.get(key) || []), obj])
+          , new Map)
+          .entries()
+        ]
+        .map(([key, objArr]) => [key, ...objArr]);
+      console.log(dataFormatAccountId)
+
+      function calendar(DateMonth){
+        for(let i=0; i <= DateMonth.length - 1; i++){
+          const dateFormat = `${DateMonth[i] <= 9 ? "0"+DateMonth[i] : DateMonth[i]}/${(monthCount+1) <=9 ? "0"+(monthCount+1) : (monthCount+1)}/${yearCount}`
+            days += `<th class="${dateFormat} table-date">${DateMonth[i] <= 9 ? "0"+DateMonth[i] : DateMonth[i]}</th>`
+        }
+      }
+
+      calendar(arrayDateInMonth)
+
+      const employee = `<tr><th class="table-name">Employee</th>${days}</tr>`;
+      
+      const html = dataFormatAccountId.map((data,i) =>{
+        const number = document.querySelectorAll(".table-date");
+        console.log(data,number)
+        return  `
+        <tr>
+          <td class="table-name"><p>${data[0]}</p></td>
+
+        </tr>
+        `
+      }).join("");
+
+      const render = `<table class="table-timesheet" >${employee}${html}</table>`
+
+      divEl.innerHTML = `${render}`;
+        jsDateEl.innerHTML = `${ months[monthCount]} - ${date.getFullYear()}`;
+        //check data  
+      }
+      btnPre.addEventListener("click", () => {
+        monthCount--;
+        if (monthCount == -1) {
+          monthCount = 11;
+          yearCount--;
+        }
+        const monthDate = monthCount + 1;
+        arrayDateInMonth =  getDays(monthCount, yearCount);
+        getUrlApi(renderMonth)
+      });
+      btnNext.addEventListener("click", () => {
+        monthCount++;
+        if (monthCount == 12) {
+          monthCount = 0;
+          yearCount++;
+        }
+        const monthDate = monthCount + 1;
+        arrayDateInMonth =  getDays(monthCount, yearCount); 
+        console.log(monthDate,yearCount)
+        getUrlApi(renderMonth)
+      });
+      btnToday.addEventListener("click", () => {
+        monthCount = monthCurr;
+        yearCount = yearCurr;
+        const monthDate = monthCount + 1;
+        arrayDateInMonth =  getDays(monthCount, yearCount);
+        getUrlApi(renderMonth)
+      })
+
+      
+</script>
+
+
+
+<script>
+  const switchMonth = document.querySelector(".switch-date_month");
+  const switchWeek = document.querySelector(".switch-date_week");
+  
+
+
+  switchMonth.onclick = () =>{
+    const active = document.querySelector(".switch-date_week.active");
+    if(active){
+      active.classList.remove("active");
+    }
+    switchMonth.classList.add("active");
+    nextPhp.classList.add("hide");
+    prevPhp.classList.add("hide");
+    todayPhp.classList.add("hide");
+    btnNext.classList.remove("hide");
+    btnPre.classList.remove("hide");
+    btnToday.classList.remove("hide");
+   
+    getUrlApi(renderMonth)
+    tdEl.innerHTML = "";
+  }
+
+  switchWeek.onclick = () =>{
+    const active = document.querySelector(".switch-date_month.active");
+    if(active){
+      active.classList.remove("active");
+    }
+    switchWeek.classList.add("active");
+     nextPhp.classList.remove("hide");
+    prevPhp.classList.remove("hide");
+    todayPhp.classList.remove("hide");
+    btnNext.classList.add("hide");
+    btnPre.classList.add("hide");
+    btnToday.classList.add("hide");
      getUrlApi(render);
-   </script>
+divEl.innerHTML = "";
+  }
+    getUrlApi(render);
 </script>

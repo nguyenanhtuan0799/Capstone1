@@ -24,6 +24,11 @@ function handelCreate() {
   let userName = document.querySelector("input[name='username']").value;
   let password = document.querySelector("input[name='password']").value;
   let type = document.querySelector("#type").value;
+  const d = new Date();
+  const day = d.getDate();
+  const month = d.getMonth() + 1;
+  const year = d.getFullYear();
+  const date = `${day}/${month}/${year}`;
   // 1 username
   if (
     userName == "" ||
@@ -50,6 +55,7 @@ function handelCreate() {
       user_name: userName,
       password: password,
       role_id: type,
+      createDate: date,
     };
     if (userName && password && type) {
       createEmployee(formData);

@@ -18,6 +18,8 @@ $data = json_decode(file_get_contents("php://input"));
 $createAccount->user_name = $data->user_name;
 $createAccount->password = $data->password;
 $createAccount->role_id = $data->role_id;
+$createAccount->createDate = $data->createDate;
+
 
 
 if ($createAccount->createAccount()) {

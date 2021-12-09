@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../assets/css/manager/tablecontent.css" />
     <link rel="stylesheet" href="../../assets/css/manager/exportcss.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+   
 </head>
 
 <body>
@@ -44,5 +45,7 @@
     require("../../views/footer.php");
     ?>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://pagination.js.org/dist/2.1.5/pagination.js"></script>
 
 </html>
