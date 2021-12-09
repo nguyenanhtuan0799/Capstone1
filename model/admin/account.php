@@ -19,6 +19,14 @@ class Account
     {
         $this->conn = $db;
     }
+    //view total account
+      public function viewAccount()
+    {
+        $query = "SELECT * FROM account";
+        $stmt  = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 
     //create
     public function createAccount()
