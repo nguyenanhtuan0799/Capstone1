@@ -101,6 +101,20 @@
                                   </div>
                                 </div>
                               </div>
+                              <div class="row">
+                                <div class="col l-6">
+                                  <div class="report-total_shift" style="padding:19px">
+                                    <label>Total Shift :</label>
+                                    <p class="report-info_inner report_shift" style="display:inline" ></p>
+                                  </div>
+                                </div>
+                                <div class="col l-6">
+                                  <div class="report-total_overtime"style="padding:19px">
+                                    <label>Overtime :</label>
+                                    <p class="report-info_inner report_overtime" style="display:inline" ></p>
+                                  </div>
+                                </div>
+                              </div>
                     
                             </div>
                           </div>
@@ -170,6 +184,8 @@
      const nextDate = document.querySelector(".js-next");
      const prevDate = document.querySelector(".js-prev");
      const todayEL = document.querySelector(".js-today");
+     const totalShift = document.querySelector(".report_shift");
+     const totalOvertime = document.querySelector(".report_overtime");
      let stringInput;
      const urlApi = "http://localhost/caps1/api/manager/report.php";
      if(inputSearch.innerHTML){
@@ -219,7 +235,7 @@
           .entries()
         ]
         .map(([key, objArr]) => [key, ...objArr]);
-
+      
         // date time
        const colEl = document.querySelectorAll(".empty-col");
        let colElCurr = document.querySelector(".empty-col.empty-currentDate");
@@ -251,6 +267,10 @@
               <td class='table-col'${colElCurr ? (colElCurr.innerHTML==lastDate.innerHTML ? "style='background-color:#4ea3ff'": "" ) : ""}>${lastDate.innerHTML}</td>
             </tr>
     ${dataFormatAccountId.map((data) => {
+      data.shift();
+      let shift = 0;
+      let overtime =0;
+      
       let firstCheckDateFormat = 0; 
        let secondCheckDateFormat = 0; 
        let thirdCheckDateFormat = 0; 
@@ -267,7 +287,18 @@
        let lastOvertimeDateFormat; 
       let accountId = data[0];
       data.map(data => {
-         reportFullname.innerHTML = data.fullname;
+      const monthData = data.date.slice(3,5);
+      const month = firstDateFormat.slice(3,5);
+        if(parseInt(monthData) === parseInt(month)){
+          shift++;
+          if(parseInt(data.overtime) > 0){
+            overtime+=data.overtime;
+          }
+        }
+        totalShift.innerHTML = `${shift} Shift`
+        totalOvertime.innerHTML = `${overtime} H`
+
+    reportFullname.innerHTML = data.fullname;
      reportEmail.innerHTML = data.email;
      reportType.innerHTML = data.role_id == 2 ? "Employee" : "";
      reportPhone.innerHTML = data.phone_number;

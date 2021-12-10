@@ -17,9 +17,7 @@
                 EXPORT TIMESHEET
             </h1>
         </div>
-
     </div>
-
     <div class="app-content_switch_export">
         <div class="export-container">
             <h4>Export To Excel</h4>
@@ -72,10 +70,10 @@
        <div class="switch-date_month">Month</div>
        <div class="switch-date_week active">Week</div>
      </div>
+     <table class="table" id="table-timesheet">
+       </table>
     <div class="table-div">
     </div>
-    <table class="table" id="table-timesheet">
-    </table>
 </div>
 
 <script>
@@ -358,11 +356,12 @@ function exportTableToExcel(tableId, filename) {
 
   const divEl = document.querySelector(".table-div");
     const date = new Date();
+    let dayCurr = date.getDate();
     let monthCurr = date.getMonth() ;
     let yearCurr = date.getFullYear();
     let monthCount = date.getMonth() ;
     let yearCount = date.getFullYear();
-
+    let DateCurrent = `${dayCurr<=9?"0"+dayCurr:dayCurr}/${monthCurr+1}/${yearCurr}`
   const getDays = (month, year) => {
       let date = new Date(`${year}-${parseInt(month) + 1}-01`);
       let days = [];
@@ -410,34 +409,84 @@ function exportTableToExcel(tableId, filename) {
         ]
         .map(([key, objArr]) => [key, ...objArr]);
       console.log(dataFormatAccountId)
-
       function calendar(DateMonth){
         for(let i=0; i <= DateMonth.length - 1; i++){
           const dateFormat = `${DateMonth[i] <= 9 ? "0"+DateMonth[i] : DateMonth[i]}/${(monthCount+1) <=9 ? "0"+(monthCount+1) : (monthCount+1)}/${yearCount}`
-            days += `<th class="${dateFormat} table-date">${DateMonth[i] <= 9 ? "0"+DateMonth[i] : DateMonth[i]}</th>`
+            days += `<th class=" table-date table-col" style="${dateFormat == DateCurrent? "background-color:var(--primary-key)" : ""}">${DateMonth[i] <= 9 ? "0"+DateMonth[i] : DateMonth[i]}</th>`
         }
+              const employee = `<tr class="table-row"><th class="table-name table-col">Employee</th>${days}</tr>`;
+              
+              const html = dataFormatAccountId.map((data,i) =>{
+                let count = 0;
+                const fullname = data[0];
+                  
+                return  `
+                <tr class="table-row">
+                  <td class="table-name table-col"><p>${fullname}</p></td>
+                  ${DateMonth.map((date)=>{
+                      const dateDay = date <= 9 ? "0"+date : date;
+                      const dateFull = `${dateDay}/${monthCount+1}/${yearCount}`
+                    return `<td class="table-date table-col"><p id="" class="${dateFull} ${i}">Total: 0H Overtime: 0H</p> 
+                    </td>`
+                    }).join("")
+                  }
+                </tr>
+                `
+              }).join("");
+              const render = `<table class="table-timesheet" >${employee}${html}</table>`
+              divEl.innerHTML = `${render}`;
+                jsDateEl.innerHTML = `${ months[monthCount]} - ${yearCount}`;
       }
 
       calendar(arrayDateInMonth)
-
-      const employee = `<tr><th class="table-name">Employee</th>${days}</tr>`;
-      
-      const html = dataFormatAccountId.map((data,i) =>{
-        const number = document.querySelectorAll(".table-date");
-        console.log(data,number)
-        return  `
-        <tr>
-          <td class="table-name"><p>${data[0]}</p></td>
-
-        </tr>
-        `
-      }).join("");
-
-      const render = `<table class="table-timesheet" >${employee}${html}</table>`
-
-      divEl.innerHTML = `${render}`;
-        jsDateEl.innerHTML = `${ months[monthCount]} - ${date.getFullYear()}`;
         //check data  
+       dataFormatAccountId.map((data,i)=>{
+                data.shift()
+
+          const dataFormat1 = data.map(({date,hours,overtime}) => {
+                  const data = [
+                    date,
+                    {
+                      hours,
+                      overtime
+                    }
+                  ];
+                  return data;
+                })
+              const dataFormatDate = [...
+                        dataFormat1.reduce((map, [key, obj]) => 
+                          map.set(key, [...(map.get(key) || []), obj])
+                        , new Map)
+                        .entries()
+                      ]
+                      .map(([key, objArr]) => [key, ...objArr]);
+
+              //check data
+                dataFormatDate.map((data)=>{
+                  let total;
+                  let overtime;
+                  const dateEl = document.getElementsByClassName(`${data[0]} ${i}`)[0];
+                    data.shift();
+                    const dataCurr = data.reduce((init,curr)=>{
+                        return {
+                          hours:(parseInt(init.hours) + parseInt(curr.hours)),
+                          overtime:(parseInt(init.overtime) + parseInt(curr.overtime))
+                        }
+                      },{
+                        hours:"0",
+                        overtime:"0"
+                      })
+                    total = (parseInt(dataCurr.hours) + parseInt(dataCurr.overtime));
+                    overtime = dataCurr.overtime;
+                    const html = `Total: ${total}H Overtime: ${overtime}H`
+
+                      if(dateEl){
+                        dateEl.innerHTML = html;
+                      }
+                })
+       })
+     
+
       }
       btnPre.addEventListener("click", () => {
         monthCount--;
@@ -457,7 +506,6 @@ function exportTableToExcel(tableId, filename) {
         }
         const monthDate = monthCount + 1;
         arrayDateInMonth =  getDays(monthCount, yearCount); 
-        console.log(monthDate,yearCount)
         getUrlApi(renderMonth)
       });
       btnToday.addEventListener("click", () => {

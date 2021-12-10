@@ -5,24 +5,13 @@
                      HISTORY TIMEKEEPING
                  </h1>
              </div>
-             <div class="app-content_switch">
-                 <div class="app-content_switch-icon">
-                     <div class="wrapper-app_icon">
-                         <i class="bx bxs-left-arrow app-content_switch-prev js-prev-date"></i>
-                     </div>
-                     <div class="wrapper-app_icon">
-                         <i class="bx bxs-right-arrow app-content_switch-next js-next-date"></i>
-                     </div>
-                 </div>
-                 <div class="app-content_switch-date js-display-date">
-                     04/10/2021 - 10/10/2021
-                 </div>
-             </div>
+             
          </div>
          <div class="app-content-pagination">
              <span class="pagination-user"> Name: <?=$_SESSION['fullname']?></span>
          </div>
-         <table class="table">
+         <div class="scroll-bar">
+             <table class="table">
              <thead>
                  <tr class="table-row">
                      <th class="table-col">STT</th>
@@ -39,8 +28,7 @@
                  
              </tbody>
          </table>
-         <div id="data-container"></div>
-<div id="pagination-container"></div>
+         </div>
 
      </div>
      <script src="../../assets/js/vendor/moment.js"></script>

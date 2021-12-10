@@ -100,3 +100,9 @@
   margin: 2px 8px;
   padding: 4px 2px;
 }
+
+.scroll-bar {
+  height: 74vh;
+  overflow: hidden;
+  overflow-y: auto;
+}

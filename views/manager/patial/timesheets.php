@@ -461,6 +461,8 @@
       dateEl.innerHTML = html;
 
       }
+                      console.log(dataCurr)
+
     })
 
 

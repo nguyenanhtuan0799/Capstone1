@@ -14,25 +14,27 @@
             <button type="submit" class="btn-search form-search-btn"><i class="fa fa-search"></i></button>
         </form>
     </div>
-    <table class="table">
-        <thead>
-            <tr class="table-row font-weight" >
-                <th class="table-col">SID</th>
-                <th class="table-col">EMPLOYEE</th>
-                <th class="table-col">DATE</th>
-                <th class="table-col">SHIFT</th>
-                <th class="table-col">TIME</th>
-                <th class="table-col">OVERTIME</th>
-                <th class="table-col">LATE</th>
-                <th class="table-col">STATUS</th>
-                <th class="table-col">ACTION</th>
-            </tr>
-        </thead>
-        <tbody class="table table-js">
-            
-        </tbody>
-    </table>
-    <div id="pagination"></div>
+    <div class="scroll-bar">
+
+      <table class="table ">
+          <thead>
+              <tr class="table-row font-weight" >
+                  <th class="table-col">SID</th>
+                  <th class="table-col">EMPLOYEE</th>
+                  <th class="table-col">DATE</th>
+                  <th class="table-col">SHIFT</th>
+                  <th class="table-col">TIME</th>
+                  <th class="table-col">OVERTIME</th>
+                  <th class="table-col">LATE</th>
+                  <th class="table-col">STATUS</th>
+                  <th class="table-col">ACTION</th>
+              </tr>
+          </thead>
+          <tbody class="table table-js">
+              
+          </tbody>
+      </table>
+    </div>
 </div>
 <script>
 
