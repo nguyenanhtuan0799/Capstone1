@@ -3,6 +3,7 @@ const employeeURL = "http://localhost/caps1/api/admin/viewEmployee.php";
 const deleteURL = "http://localhost/caps1/api/admin/delete.php";
 const createURL = "http://localhost/caps1/api/admin/create.php";
 const resetURL = "http://localhost/caps1/api/admin/resetPassword.php";
+const searchEmployeeURL = "http://localhost/caps1/api/admin/searchemployee.php";
 
 // view employee
 
@@ -14,12 +15,24 @@ function start() {
 
 start();
 
+const btnSearch = document.querySelector(".btn-search");
+function searchEmployee(callback, search) {
+  fetch(searchEmployeeURL + `/?fullname=${search}`)
+    .then((response) => response.json())
+    .then(callback)
+    .catch((err) => alert("This username is not available"));
+}
+btnSearch.onclick = () => {
+  const search = document.querySelector(".input-search").value;
+  searchEmployee(renderEmployee, search);
+};
 //get employee
 function getEmployee(callback) {
   fetch(employeeURL)
     .then((response) => response.json())
     .then(callback);
 }
+
 //render employee
 function renderEmployee({ data }) {
   let contentTable = `

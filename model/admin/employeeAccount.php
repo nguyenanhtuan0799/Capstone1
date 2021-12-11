@@ -27,6 +27,14 @@ class EmployeeAccount
         $stmt->execute();
         return $stmt;
     }
+     public function search()
+    {
+        $query = "SELECT * FROM account WHERE fullname like :fullname and role_id=2";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":fullname",$this->fullname);
+        $stmt->execute();
+        return $stmt;
+    }
 
     //create
     public function createAccount()

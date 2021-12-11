@@ -11,6 +11,24 @@
     <link rel="stylesheet" href="../../assets/css/admin/admin.css">
     <link rel="stylesheet" href="../../assets/css/admin/base.css">
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    
+     <style>
+            .graphBox{
+                position: relative;
+                width: 100%;
+                min-height: 100px;
+                padding: 20px;
+            }
+            .graphBox .box{
+                position: relative;
+                background: #fff;
+                padding: 20px;
+                width: 100%;
+                box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+                border-radius:20px;
+            }
+     </style>
+    
 </head>
 
 <body>
@@ -101,9 +119,115 @@
 
             </div>
         </div>
+        <div class="graphBox">
+            <div class="box"><canvas id="myChart"></canvas></div>
+        </div>
     </section>
     <script src="../../assets/js/admin/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
     <script>
+        const urlCre = 'http://localhost/caps1/api/admin/totalAcount.php'
+        const arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        function Text(callback) {
+            fetch(urlCre)
+                .then(function(res) {
+                    return res.json();
+                })
+                .then(callback)
+        }
+
+        function renderText({
+            data
+        }) {
+            // console.log(data[0].createDate.slice(3,5));
+            data.map(item => {
+                let newItem = parseInt(item.createDate.slice(3, 5));
+                switch (newItem) {
+                    case 12:
+                        arr[11] = arr[11] + 1
+                        break
+                    case 11:
+                        arr[10] = arr[10] + 1
+                        break
+                    case 10:
+                        arr[9] = arr[9] + 1
+                        break
+                    case 9:
+                        arr[8] = arr[8] + 1
+                        break
+                    case 8:
+                        arr[7] = arr[7] + 1
+                        break
+                    case 7:
+                        arr[6] = arr[6] + 1
+                        break
+                    case 6:
+                        arr[5] = arr[5] + 1
+                        break
+                    case 5:
+                        arr[4] = arr[4] + 1
+                        break
+                    case 4:
+                        arr[3] = arr[3] + 1
+                        break
+                    case 3:
+                        arr[2] = arr[2] + 1
+                        break
+                    case 2:
+                        arr[1] = arr[1] + 1
+                        break
+                    case 1:
+                        arr[0] = arr[0] + 1
+                        break
+                    default:
+                        console.log('error');
+                }
+
+                console.log(item.createDate.slice(3, 5));
+            })
+            console.log(arr)
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: [{
+                        label: 'account',
+                        barPercentage: 1,
+                        categoryPercentage: 1.0,
+                        data: arr,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)',
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            ticks: {
+                                stepSize: 1.0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        Text(renderText)
         const sales_boxes = document.querySelector('.sales_boxes')
         const urlApii = 'http://localhost/caps1/api/admin/viewemployee.php'
         const urlApi = 'http://localhost/caps1/api/admin/viewmanager.php'

@@ -17,6 +17,14 @@ class ManagerAccount
     {
         $this->conn = $db;
     }
+    public function search()
+    {
+        $query = "SELECT * FROM account WHERE fullname like :fullname and role_id=1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":fullname",$this->fullname);
+        $stmt->execute();
+        return $stmt;
+    }
 
     //read
     public function viewAccount()
