@@ -49,9 +49,10 @@
         } while ($week == $dt->format('W'));
         ?>
      </div>
-     <table class="table">
-
+     <div class="scroll-bar">
+       <table class="table">
      </table>
+     </div>
    </div>
    <script>
      const tdEl = document.querySelector(".table");

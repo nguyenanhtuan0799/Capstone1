@@ -275,3 +275,12 @@
   color: var(--white-color);
   transition: all 0.2s linear;
 }
+
+.header-user__nofi-list {
+  height: 24vh;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.header-user__nofi-desc {
+  margin-right: 4px;
+}

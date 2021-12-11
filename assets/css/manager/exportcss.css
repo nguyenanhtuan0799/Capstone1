@@ -355,3 +355,7 @@ form.example input[type="text"] {
   overflow-x: auto;
   overflow-y: auto;
 }
+.btn-export_month.hide,
+.btn-export_week.hide {
+  display: none;
+}

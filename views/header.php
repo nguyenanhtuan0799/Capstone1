@@ -56,7 +56,9 @@ session_start();
         <div class="col l-4">
           <div class="header-user">
             <ul class="header-user__list">
-              <li class="header-user__item">
+              <?php 
+              if($_SESSION['role_id'] == 1){
+                echo '<li class="header-user__item">
                 <div class="header-user__item-nofi">
                   <i class="bx bxs-bell"></i>
                   <span class="header-user__item-nofi__count">2</span>
@@ -66,44 +68,18 @@ session_start();
                     </div>
                     <div class="header-user__nofi-body">
                       <ul class="header-user__nofi-list">
-                        <li class="header-user__nofi-item">
-                          <a class="header-user__nofi-link" href="">
-                            <span class="header-user__nofi-desc">
-                              Nguyena has timekeeping needs your approval
-                            </span>
-                            <span class="header-user__nofi-date">
-                              12/12/2021
-                            </span>
-                          </a>
-                        </li>
-                        <li class="header-user__nofi-item">
-                          <a class="header-user__nofi-link" href="">
-                            <span class="header-user__nofi-desc">
-                              Nguyena has timekeeping needs your approval
-                            </span>
-                            <span class="header-user__nofi-date">
-                              12/12/2021
-                            </span>
-                          </a>
-                        </li>
-                        <li class="header-user__nofi-item">
-                          <a class="header-user__nofi-link" href="">
-                            <span class="header-user__nofi-desc">
-                              Nguyena has timekeeping needs your approval
-                            </span>
-                            <span class="header-user__nofi-date">
-                              12/12/2021
-                            </span>
-                          </a>
-                        </li>
+                        
                       </ul>
                     </div>
                     <div class="header-user__nofi-footer">
-                      <a href="">Views All....</a>
+                      <a href="../../views/manager/checkworking.php">Views All....</a>
                     </div>
                   </div>
                 </div>
-              </li>
+              </li>';
+              }
+              ?>
+              
               <li class="header-user__item">
                 <div class="header-user__item-info">
                   <img src="../../assets/img/noneUSer.png" alt="image-User" />
@@ -155,5 +131,35 @@ session_start();
     </div>
   </div>
   <div class="empty" data-index="<?= $_SESSION['user_id'] ?>"></div>
-
 </header>
+<script>
+  const UrlApiNotify = "http://localhost/caps1/api/manager/notification.php";
+  const countNotificationEl = document.querySelector(".header-user__item-nofi__count");
+  const notificationList = document.querySelector('.header-user__nofi-list');
+  function getUrlApi(callback){
+    fetch(UrlApiNotify)
+      .then(response => response.json())
+      .then(callback)
+  }
+  function render({data}){
+    countNotificationEl.innerHTML = data.length;
+    const html = data.map((data,i)=>{
+      
+      return `
+        <li class="header-user__nofi-item">
+          <a class="header-user__nofi-link" href="../../views/manager/checkworking.php">
+            <span class="header-user__nofi-desc">
+              ${data.fullname} has timekeeping needs your approval
+            </span>
+            <span class="header-user__nofi-date">
+              ${data.date}
+            </span>
+          </a>
+        </li>
+      `
+    })
+    notificationList.innerHTML = html.join("")
+  }
+
+  getUrlApi(render);
+</script>

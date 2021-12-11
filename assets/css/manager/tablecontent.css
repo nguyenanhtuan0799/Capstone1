@@ -121,3 +121,9 @@
 .app-content_switch-next {
   padding: 2px 0;
 }
+.scroll-bar {
+  height: 81vh;
+  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: scroll;
+}

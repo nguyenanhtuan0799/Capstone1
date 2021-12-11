@@ -8,6 +8,8 @@
     <title>Sign</title>
     <link rel="icon" href="./assets/images/male-clothes.ico">
     <link href="./assets/css/sign.css" rel="stylesheet">
+    <link href="./assets/css/common.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -26,6 +28,7 @@
                 <a href="#">Forgot your password?</a>
                 <button name="btn_submit" type="submit">Sign In</button>
             </form>
+            <div class="signAdmin"><a href="../../caps1/sign.php">Sign</a></div>
         </div>
         <div class="overlay-container">
             <div class="overlay">

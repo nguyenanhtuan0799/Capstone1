@@ -21,7 +21,8 @@
     <div class="app-content_switch_export">
         <div class="export-container">
             <h4>Export To Excel</h4>
-            <button type="button" onclick="exportTableToExcel('table-timesheet','timesheet')" class="button mt-top">Export</button>
+            <button type="button" onclick="exportTableToExcel('table-timesheet','timesheet')" class="button mt-top btn-export_week">Export</button>
+            <button type="button" onclick="exportTableToExcel('table-div','timesheet')" class="button mt-top btn-export_month hide">Export</button>
         </div>
         <div class="app-content_switch-icon">
              <div class="wrapper-app_icon">
@@ -72,11 +73,16 @@
      </div>
      <table class="table" id="table-timesheet">
        </table>
-    <div class="table-div">
+    <div class="table-div" id="table-div">
     </div>
 </div>
 
 <script>
+  
+
+
+
+
 function exportTableToExcel(tableId, filename) {
     let dataType = 'application/vnd.ms-excel';
     let extension = '.xls';
@@ -524,7 +530,8 @@ function exportTableToExcel(tableId, filename) {
 <script>
   const switchMonth = document.querySelector(".switch-date_month");
   const switchWeek = document.querySelector(".switch-date_week");
-  
+  const exportWeek = document.querySelector(".btn-export_week");
+  const exportMonth = document.querySelector(".btn-export_month");
 
 
   switchMonth.onclick = () =>{
@@ -539,7 +546,9 @@ function exportTableToExcel(tableId, filename) {
     btnNext.classList.remove("hide");
     btnPre.classList.remove("hide");
     btnToday.classList.remove("hide");
-   
+   exportWeek.classList.add("hide");
+
+   exportMonth.classList.remove("hide");
     getUrlApi(renderMonth)
     tdEl.innerHTML = "";
   }
@@ -556,6 +565,9 @@ function exportTableToExcel(tableId, filename) {
     btnNext.classList.add("hide");
     btnPre.classList.add("hide");
     btnToday.classList.add("hide");
+   exportWeek.classList.remove("hide");
+   exportMonth.classList.add("hide");
+
      getUrlApi(render);
 divEl.innerHTML = "";
   }

@@ -74,4 +74,10 @@ class Timesheet
             return false;
         }
     }
+    public function notification(){
+        $query = "SELECT account.fullname,timesheet.* FROM account,timesheet where account.account_id = timesheet.account_id and status = 'false' ORDER BY ts_id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
