@@ -71,17 +71,18 @@
        <div class="switch-date_month">Month</div>
        <div class="switch-date_week active">Week</div>
      </div>
-     <table class="table" id="table-timesheet">
+    <div class="scroll-bar">
+      
+       <table class="table" id="table-timesheet">
        </table>
+    
+    </div>
     <div class="table-div" id="table-div">
     </div>
 </div>
 
 <script>
   
-
-
-
 
 function exportTableToExcel(tableId, filename) {
     let dataType = 'application/vnd.ms-excel';
@@ -532,7 +533,7 @@ function exportTableToExcel(tableId, filename) {
   const switchWeek = document.querySelector(".switch-date_week");
   const exportWeek = document.querySelector(".btn-export_week");
   const exportMonth = document.querySelector(".btn-export_month");
-
+      const divElement = document.querySelector(".scroll-bar");
 
   switchMonth.onclick = () =>{
     const active = document.querySelector(".switch-date_week.active");
@@ -547,7 +548,7 @@ function exportTableToExcel(tableId, filename) {
     btnPre.classList.remove("hide");
     btnToday.classList.remove("hide");
    exportWeek.classList.add("hide");
-
+    divElement.classList.add("hide");
    exportMonth.classList.remove("hide");
     getUrlApi(renderMonth)
     tdEl.innerHTML = "";
@@ -558,6 +559,8 @@ function exportTableToExcel(tableId, filename) {
     if(active){
       active.classList.remove("active");
     }
+    divElement.classList.remove("hide");
+
     switchWeek.classList.add("active");
      nextPhp.classList.remove("hide");
     prevPhp.classList.remove("hide");

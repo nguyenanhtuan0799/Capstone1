@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="../../assets/css/manager/bar.css" />
     <link rel="stylesheet" href="../../assets/css/manager/exportcss.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <style>
+        .scroll-bar{
+            height:70vh;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+        
+    </style>
 </head>
 
 <body>

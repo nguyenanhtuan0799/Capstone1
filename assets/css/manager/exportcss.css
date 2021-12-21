@@ -359,3 +359,7 @@ form.example input[type="text"] {
 .btn-export_week.hide {
   display: none;
 }
+
+.scroll-bar.hide {
+  display: none;
+}

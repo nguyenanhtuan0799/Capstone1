@@ -61,7 +61,7 @@ session_start();
                 echo '<li class="header-user__item">
                 <div class="header-user__item-nofi">
                   <i class="bx bxs-bell"></i>
-                  <span class="header-user__item-nofi__count">2</span>
+                  <span class="header-user__item-nofi__count">0</span>
                   <div class="header-user__nofi">
                     <div class="header-user__nofi-heading">
                       <h1>Notifications</h1>

@@ -292,7 +292,7 @@
         if(parseInt(monthData) === parseInt(month)){
           shift++;
           if(parseInt(data.overtime) > 0){
-            overtime+=data.overtime;
+            overtime+=parseInt(data.overtime);
           }
         }
         totalShift.innerHTML = `${shift} Shift`

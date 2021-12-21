@@ -130,7 +130,6 @@
             console.log(getFileSize(imgDb));
             if(getFileSize(img) === getFileSize(imgDb)){
                 handleTimekeeping();
-                alert("Timekeeping Successfully!");
                 window.location="../../views/employee/employeeIndex.php";
             }else{
                 alert("Please insert the correct electronic signature");
@@ -206,6 +205,8 @@
     const startTime = `${hours}:${minute}`;
     const days = date.getDay("dateFull");
     //get main,overtime
+    let isFlag = false;
+    let isCheck = false;
     let hoursMain ;
     let hourOvertime;
     
@@ -225,7 +226,11 @@
             }
             shiftName = "Morning Shift";
             shiftTime = "07:00 - 11:00";
-            const time1 = "07:00";
+            const timeArr1 = ["6","7","8","9","10","11"];
+            if(timeArr1.includes(hours)){
+                isCheck = true;
+            }
+            const time1 = "07:10";
             if(startTime > time1){
                 isLate = "true";
             }else{
@@ -242,7 +247,11 @@
             }
             shiftName = "Afternoon Shift";
             shiftTime = "13:00 - 17:00";
-            const time2 = "13:00";
+            const timeArr2 = ["12","13","14","15","16","17"];
+            if(timeArr2.includes(hours)){
+                isCheck = true;
+            }
+            const time2 = "13:10";
             if(startTime > time2){
                 isLate = "true";
             }else{
@@ -259,7 +268,11 @@
             }
             shiftName = "Night Shift";
             shiftTime = "18:00 - 21:00";
-            const time3 = "18:00";
+            const timeArr3 = ["17","18","19","20","21"];
+            if(timeArr3.includes(hours)){
+                isCheck = true;
+            }
+            const time3 = "18:10";
             if(startTime > time3){
                 isLate = "true";
             }else{
@@ -269,19 +282,28 @@
         default:
             break;
     }
-    const formData = {
-        account_id : account_id,
-        date:dateFull,
-        start_time:startTime,
-        hours: hoursMain,
-        overtime: hourOvertime,
-        dayofweek: days,
-        late_arrival: isLate,
-        status: "false",
-        shift_name: shiftName,
-        shift_time: shiftTime,
+    if(hoursMain && hourOvertime && shiftName && shiftTime){
+        isFlag = true;
     }
-    createTimesheet(formData);
+    if(isFlag && isCheck){
+        const formData = {
+            account_id : account_id,
+            date:dateFull,
+            start_time:startTime,
+            hours: hoursMain,
+            overtime: hourOvertime,
+            dayofweek: days,
+            late_arrival: isLate,
+            status: "false",
+            shift_name: shiftName,
+            shift_time: shiftTime,
+        }
+        createTimesheet(formData);
+        alert("Timekeeping Successfully!");
+
+    }else{
+        alert("Please Enter full information or You have overtimed");
+    }
     }
 
 </script>
